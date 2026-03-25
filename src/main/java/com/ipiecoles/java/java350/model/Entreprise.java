@@ -1,7 +1,7 @@
 package com.ipiecoles.java.java350.model;
 
 import java.time.LocalDate;
-import java.util.*;
+
 
 public final class Entreprise {
 
