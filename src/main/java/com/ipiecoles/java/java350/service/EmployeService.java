@@ -46,7 +46,7 @@ public class EmployeService {
                     "L'employé de matricule " + matricule + " existe déjà en BDD");
         }
 
-        Double salaire = Entreprise.COEFF_SALAIRE_ETUDES.get(niveauEtude)
+        Double salaire = Entreprise.getCoeffSalaire(niveauEtude)
                 * Entreprise.SALAIRE_BASE;
 
         if (tempsPartiel != null) {
