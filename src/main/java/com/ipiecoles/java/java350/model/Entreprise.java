@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 public final class Entreprise {
+
     public static final Double SALAIRE_BASE = 1521.22;
     public static final Integer NB_CONGES_BASE = 25;
     public static final Double INDICE_PRIME_BASE = 0.3;
@@ -13,11 +14,14 @@ public final class Entreprise {
     public static final Integer NB_JOURS_MAX_FORFAIT = 218;
     private static final double PRIME_BASE = 1000d;
 
-    public static final Map<NiveauEtude, Double> COEFF_SALAIRE_ETUDES = new EnumMap<>(NiveauEtude.class);
+    protected static final Map<NiveauEtude, Double> COEFF_SALAIRE_ETUDES =
+            new EnumMap<>(NiveauEtude.class);
+
     private static final Map<Integer, LocalDate> datePaque = new HashMap<>();
 
-    private Entreprise() {
+    public static final String MATRICULE_INITIAL = "00000";
 
+    private Entreprise() {
     }
 
     static {
@@ -53,40 +57,28 @@ public final class Entreprise {
         datePaque.put(2040, LocalDate.of(2040, 4, 1));
     }
 
-    public static final String MATRICULE_INITIAL = "00000";
-
-
     public static Double primeAnnuelleBase() {
         return PRIME_BASE;
     }
 
-    public static List<LocalDate> joursFeries(LocalDate now){
-
-        return Arrays.asList(
-                // 1er janvier	Jour de l’an
-                LocalDate.of(now.getYear(), 1,1),
-                // Lendemain du dimanche de Pâques.	Lundi de Pâques
-                datePaque.get(now.getYear()).plusDays(1L),
-                // 1er mai	Fête du Travail
-                LocalDate.of(now.getYear(), 5,1),
-                // 8 mai Fête de la Victoire
-                LocalDate.of(now.getYear(), 5,8),
-                // Jeudi 40 jours après Pâques Ascension Fête chrétienne célébrant la montée de Jésus aux cieux.
-                datePaque.get(now.getYear()).plusDays(40L),
-                // Le lundi suivant le dimanche de Pentecôte (le septième après Pâques).
-                datePaque.get(now.getYear()).plusDays(50L),
-                // 14 juillet Fête nationale
-                LocalDate.of(now.getYear(), 7,14),
-                // 15 août Assomption
-                LocalDate.of(now.getYear(), 8,15),
-                // 1er novembre	Toussaint Fête de tous les saints de l’Église catholique.
-                LocalDate.of(now.getYear(), 11,1),
-                // 11 novembre Armistice de 1918
-                LocalDate.of(now.getYear(), 11,11),
-                // 25 décembre Noël
-                LocalDate.of(now.getYear(), 12,25)
-
-        );
+    public static Double getCoeffSalaire(NiveauEtude niveauEtude) {
+        return COEFF_SALAIRE_ETUDES.get(niveauEtude);
     }
 
+    public static List<LocalDate> joursFeries(LocalDate now) {
+
+        return Arrays.asList(
+                LocalDate.of(now.getYear(), 1, 1),
+                datePaque.get(now.getYear()).plusDays(1),
+                LocalDate.of(now.getYear(), 5, 1),
+                LocalDate.of(now.getYear(), 5, 8),
+                datePaque.get(now.getYear()).plusDays(40),
+                datePaque.get(now.getYear()).plusDays(50),
+                LocalDate.of(now.getYear(), 7, 14),
+                LocalDate.of(now.getYear(), 8, 15),
+                LocalDate.of(now.getYear(), 11, 1),
+                LocalDate.of(now.getYear(), 11, 11),
+                LocalDate.of(now.getYear(), 12, 25)
+        );
+    }
 }
