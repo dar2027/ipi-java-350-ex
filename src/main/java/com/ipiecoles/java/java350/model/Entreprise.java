@@ -1,7 +1,11 @@
 package com.ipiecoles.java.java350.model;
 
 import java.time.LocalDate;
-
+import java.util.Arrays;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public final class Entreprise {
 
